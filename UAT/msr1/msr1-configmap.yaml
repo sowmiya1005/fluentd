@@ -1,0 +1,287 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: idbi-apim-msr1-config
+  namespace: nsp-idbi-apim-uat
+data:
+
+  application.properties: |
+    #Sample Generated Template
+    #Fri Oct 08 14:42:43 IST 2021
+    jdbc.MWSUser.dbURL=jdbc\:wm\:oracle\://DCORADBNPSCAN.idbibank.com\:15210;serviceName\=APIMUATSRV
+    jdbc.MWSUser.password={AES}2txKs7gKqS5e4YKVYRyCFA==
+    jdbc.MWSUser.userid=mwsuat
+    settings.watt.server.compile=/opt/softwareag/jvm/jvm/bin/javac -classpath {0} -d {1} {2}
+    settings.watt.server.auth.samlResolver=https://idbi-apim-mws-svc-h.nsp-idbi-apim-uat.svc.cluster.local\:8585/services/SAML
+    settings.watt.server.threadPool=500
+    settings.watt.net.jsse.client.disabledProtocols=SSLv2Hello,SSLv3,TLSv1,TLSv1.1
+    settings.watt.net.jsse.server.disabledProtocols=SSLv2Hello,SSLv3,TLSv1,TLSv1.1
+    user.Administrator.password={AES}/Rr3q6B6LfFEOShP9FJ0jUwbvqGC7rAKwvzC3kkMgEg=
+    user.Developer.password={AES}/Rr3q6B6LfFEOShP9FJ0jUwbvqGC7rAKwvzC3kkMgEg=
+    user.Replicator.password={AES}/Rr3q6B6LfFEOShP9FJ0jUwbvqGC7rAKwvzC3kkMgEg=
+    truststore.DEFAULT_JVM_TRUSTSTORE.ksLocation=/opt/softwareag/jvm/jvm/jre/lib/security/cacerts
+    truststore.DEFAULT_JVM_TRUSTSTORE.ksPassword={AES}z/+xVlzI9T/Dfo7Su4lrCQ==
+    truststore.istruststore.ksLocation=/opt/softwareag/common/conf/truststore.jks
+    truststore.istruststore.ksPassword={AES}O1e2whkLOxlv+xDIMJZgBR/jpQWQJz0gfdRTe9QUnPE=
+    keystore.iskeystore.keyAlias.idbibank.keyAliasPassword={AES}KWbniYeILIJ4Cphs7Tdm91kTBR6t5rVRVLZ0cyiJ20U=
+    keystore.iskeystore.ksLocation=/opt/softwareag/common/conf/keystore.jks
+    keystore.iskeystore.ksPassword={AES}KWbniYeILIJ4Cphs7Tdm91kTBR6t5rVRVLZ0cyiJ20U=
+
+  jndi_DEFAULT_IS_JNDI_PROVIDER.properties: |
+    #JNDI properties for DEFAULT_IS_JNDI_PROVIDER
+    #Thu Oct 28 12:40:05 UTC 2021
+    is.jndiAlias.description=system generated JNDI provider alias
+    keyAlias=idbibank
+    java.naming.factory.initial=com.pcbsys.nirvana.nSpace.NirvanaContextFactory
+    keyStorePwdProp=nirvana.ssl.keystore.pass
+    trustStoreAlias=istruststore
+    trustStoreProp=nirvana.ssl.truststore.path
+    trustStorePwdProp=nirvana.ssl.truststore.pass
+    keyStoreAlias=iskeystore
+    privateKeyProp=nirvana.ssl.keystore.cert
+    java.naming.provider.url=nsps\://idbi-um-svc.nsp-idbi-apim-uat.svc.cluster.local\:9002
+    keyStoreProp=nirvana.ssl.keystore.path
+
+  messaging.cnf: |
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <IDataXMLCoder version="1.0">
+      <record javaclass="com.wm.data.ISMemDataImpl">
+        <array name="Configuration" type="record" depth="1">
+          <record javaclass="com.wm.data.ISMemDataImpl">
+            <value name="aliasName">IS_UM_CONNECTION</value>
+            <value name="description">system generated Universal Messaging connection alias</value>
+            <value name="CLIENTPREFIX">msr1</value>
+            <null name="user"/>
+            <value name="enabled">true</value>
+            <value name="csqSize">-1</value>
+            <value name="csqDrainInOrder">true</value>
+            <value name="type">UM</value>
+            <value name="aliasTypeDisplay">Universal Messaging</value>
+            <value name="transactionType">NONE</value>
+            <value name="systemGenerated">false</value>
+            <jboolean name="isClientPrefixShared">true</jboolean>
+            <value name="useCSQ">true</value>
+            <value name="_state">STARTED</value>
+            <value name="um_rname">nsps://idbi-um-svc.nsp-idbi-apim-uat.svc.cluster.local:9002</value>
+            <value name="um_tryAgainMaxAttempts">5</value>
+            <value name="um_publishWaitTime">30000</value>
+            <jboolean name="um_followTheMasterForPublish">true</jboolean>
+            <jboolean name="um_followTheMasterForSubscribe">true</jboolean>
+            <number name="um_loggingOutput" type="java.lang.Integer">0</number>
+            <jboolean name="um_producerMessageTracking">false</jboolean>
+            <jboolean name="um_consumerMessageTracking">false</jboolean>
+            <value name="um_producerIncludedStrings"></value>
+            <value name="um_consumerIncludedStrings"></value>
+            <jboolean name="enableRequestReply">true</jboolean>
+            <value name="clientAuthType">ssl</value>
+            <value name="trustStoreAlias">istruststore</value>
+            <value name="keyStoreAlias">iskeystore</value>
+            <value name="keyAlias">idbibank</value>
+          </record>
+          <record javaclass="com.wm.data.ISMemDataImpl">
+            <value name="aliasName">IS_LOCAL_CONNECTION</value>
+            <value name="description">system generated local connection alias</value>
+            <value name="enabled">true</value>
+            <value name="type">LOCAL</value>
+            <value name="aliasTypeDisplay">Local</value>
+            <value name="systemGenerated">true</value>
+          </record>
+        </array>
+        <value name="defaultAlias">IS_UM_CONNECTION</value>
+      </record>
+    </IDataXMLCoder>
+
+  jms.cnf: |
+    <?xml version="1.0" encoding="UTF-8"?>
+
+    <IDataXMLCoder version="1.0">
+      <record javaclass="com.wm.data.ISMemDataImpl">
+        <array name="JMSConfiguration" type="record" depth="1">
+          <record javaclass="com.wm.data.ISMemDataImpl">
+            <value name="aliasName">DEFAULT_IS_JMS_CONNECTION</value>
+            <value name="description">system generated JMS connection alias</value>
+            <value name="clientID">MSR1_IS_JMS_CLIENT</value>
+            <value name="user"></value>
+            <value name="handle">wm.is.admin.jmsConnectionAlias.DEFAULT_IS_JMS_CONNECTION</value>
+            <value name="classLoader">INTEGRATION_SERVER</value>
+            <value name="enabled">true</value>
+            <value name="csqSize">-1</value>
+            <value name="csqDrainInOrder">true</value>
+            <value name="optTempQueueCreate">true</value>
+            <value name="transactionType">0</value>
+            <value name="systemGenerated">false</value>
+            <value name="manageDestinations">true</value>
+            <value name="allowNewConnectionPerTrigger">false</value>
+            <value name="producerCachingMode">0</value>
+            <value name="producerSessionPoolSize">0</value>
+            <value name="producerSessionPoolMinSize">0</value>
+            <value name="cacheProducersPoolSize">0</value>
+            <value name="cacheProducersPoolMinSize">0</value>
+            <value name="cacheProducersQueueList"></value>
+            <value name="cacheProducersTopicList"></value>
+            <number name="poolTimeout" type="java.lang.Integer">60000</number>
+            <number name="producerMaxRetryAttempts" type="java.lang.Long">0</number>
+            <number name="producerRetryInterval" type="java.lang.Long">0</number>
+            <jboolean name="allowReplyToConsumer">false</jboolean>
+            <value name="associationType">0</value>
+            <value name="jndi_jndiAliasName">DEFAULT_IS_JNDI_PROVIDER</value>
+            <value name="jndi_connectionFactoryLookupName">local_um</value>
+            <value name="jndi_connectionFactoryUpdateType">NONE</value>
+            <number name="jndi_connectionFactoryPollingInterval" type="java.lang.Integer">0</number>
+            <jboolean name="jndi_enableFollowTheMaster">true</jboolean>
+            <jboolean name="jndi_automaticallyCreateUMAdminObjects">false</jboolean>
+            <number name="um_loggingOutput" type="java.lang.Integer">0</number>
+            <jboolean name="um_producerMessageTracking">false</jboolean>
+            <jboolean name="um_consumerMessageTracking">false</jboolean>
+            <value name="um_producerIncludedStrings"></value>
+            <value name="um_consumerIncludedStrings"></value>
+            <value name="providerName">Universal Messaging</value>
+            <value name="providerVersion">10.7.0 Build 140269 July 16 2021</value>
+            <number name="providerMajorVersion" type="java.lang.Integer">10</number>
+            <number name="providerMinorVersion" type="java.lang.Integer">7</number>
+          </record>
+          <record javaclass="com.wm.data.ISMemDataImpl">
+            <value name="aliasName">PE_NONTRANSACTIONAL_ALIAS</value>
+            <value name="description">system generated JMS connection alias</value>
+            <value name="clientID">MSR1_PE</value>
+            <value name="user"></value>
+            <value name="handle">wm.is.admin.jmsConnectionAlias.PE_NONTRANSACTIONAL_ALIAS</value>
+            <value name="classLoader">INTEGRATION_SERVER</value>
+            <value name="enabled">true</value>
+            <value name="csqSize">-1</value>
+            <value name="csqDrainInOrder">true</value>
+            <value name="optTempQueueCreate">true</value>
+            <value name="transactionType">0</value>
+            <value name="systemGenerated">false</value>
+            <value name="manageDestinations">true</value>
+            <value name="allowNewConnectionPerTrigger">false</value>
+            <value name="producerCachingMode">0</value>
+            <value name="producerSessionPoolSize">0</value>
+            <value name="producerSessionPoolMinSize">0</value>
+            <value name="cacheProducersPoolSize">0</value>
+            <value name="cacheProducersPoolMinSize">0</value>
+            <value name="cacheProducersQueueList"></value>
+            <value name="cacheProducersTopicList"></value>
+            <number name="poolTimeout" type="java.lang.Integer">60000</number>
+            <number name="producerMaxRetryAttempts" type="java.lang.Long">0</number>
+            <number name="producerRetryInterval" type="java.lang.Long">0</number>
+            <jboolean name="allowReplyToConsumer">false</jboolean>
+            <value name="associationType">0</value>
+            <value name="jndi_jndiAliasName">DEFAULT_IS_JNDI_PROVIDER</value>
+            <value name="jndi_connectionFactoryLookupName">local_um</value>
+            <value name="jndi_connectionFactoryUpdateType">NONE</value>
+            <number name="jndi_connectionFactoryPollingInterval" type="java.lang.Integer">0</number>
+            <jboolean name="jndi_enableFollowTheMaster">true</jboolean>
+            <jboolean name="jndi_automaticallyCreateUMAdminObjects">false</jboolean>
+            <number name="um_loggingOutput" type="java.lang.Integer">0</number>
+            <jboolean name="um_producerMessageTracking">false</jboolean>
+            <jboolean name="um_consumerMessageTracking">false</jboolean>
+            <value name="um_producerIncludedStrings"></value>
+            <value name="um_consumerIncludedStrings"></value>
+            <value name="providerName">Universal Messaging</value>
+            <value name="providerVersion">10.7.0 Build 140269 July 16 2021</value>
+            <number name="providerMajorVersion" type="java.lang.Integer">10</number>
+            <number name="providerMinorVersion" type="java.lang.Integer">7</number>
+          </record>
+        </array>
+      </record>
+    </IDataXMLCoder>
+  
+  setenv.sh:  |
+    #!/bin/sh
+
+    ##############################################################################
+    #
+    # This file contains parameters that can be modified by users.
+    #
+    ##############################################################################
+
+    ## ---- SET INITIALLY BY THE INSTALLER ----
+
+    BINDIR=`dirname $0`
+    GLOBAL_SETENV=${BINDIR}/../../install/bin/setenv.sh
+    APP_NAME="Software AG Microservices Runtime"
+
+    OLD_JAVA_HOME=$JAVA_HOME
+    if [ -r "$GLOBAL_SETENV" ]; then
+    	. "$GLOBAL_SETENV"
+    fi
+
+    if [ "x$JRE_HOME" = "x" ]; then
+    	JAVA_DIR=$OLD_JAVA_HOME
+    else
+    	JAVA_DIR=$JRE_HOME
+    fi
+
+    ##############################################################################
+    #
+    # This file contains parameters that can be modified by users.
+    #
+    ##############################################################################
+
+    if [ "x$JAVA_MIN_MEM" = "x" ]; then
+    	JAVA_MIN_MEM=1024M
+    fi
+
+    if [ "x$JAVA_MAX_MEM" = "x" ]; then
+    	JAVA_MAX_MEM=1024M
+    fi
+
+    JAVA_MEMSET="-ms${JAVA_MIN_MEM} -mx${JAVA_MAX_MEM}"
+
+    JAVA_OPT_PREFER_IP4V="-Djava.net.preferIPv4Stack=true"
+
+    ##############################################################################
+    #
+    # Items in PREPENDCLASSES will be added to the classpath right after the server.jar
+    # Items in the APPENDCLASSES will be added to the absolute end of the CLASSPATH
+    #
+    ##############################################################################
+
+    PREPENDCLASSES=
+    APPENDCLASSES=
+
+    ##############################################################################
+    #
+    # Items in PREPEND_SYSTEM_CLASSPATH will be added to the classpath before proxy.jar
+    # Items in APPEND_SYSTEM_CLASSPATH will be added to the absolute end of the CLASSPATH
+    #
+    ##############################################################################
+
+    PREPEND_SYSTEM_CLASSPATH=
+    APPEND_SYSTEM_CLASSPATH=
+
+    if [ "x$SHUTDOWN_WAIT" = "x" ]; then
+    	SHUTDOWN_WAIT=300
+    fi
+
+    ##############################################################################
+    #
+    # Enter your custom Java options in the variable JAVA_CUSTOM_OPTS
+    # e.g. JAVA_CUSTOM_OPTS="-Dmy.prop1=value1 -Dmy.prop2=value2"
+    ##############################################################################
+
+    JAVA_CUSTOM_OPTS="${JAVA_CUSTOM_OPTS} ${JAVA_DEBUGGER_OPTS}"
+
+    ##############################################################################
+    #
+    # Java options for Remote Debugging, JMX, and Profiling
+    #
+    ##############################################################################
+
+    JMX_ENABLED=false
+    PROFILER_ENABLED=false
+
+    JMX_PORT=9192
+
+    JAVA_JMX_OPTS="-Dcom.sun.management.jmxremote.port=${JMX_PORT} -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
+    JAVA_PROFILER_OPTS="-javaagent:lib/jars/profiler-agent.jar=log=logs/profiler.log,level=2"
+
+    if [ "$JMX_ENABLED" = "true" ]; then
+    	JAVA_CUSTOM_OPTS="${JAVA_CUSTOM_OPTS} ${JAVA_JMX_OPTS}"
+    fi
+
+    if [ "$PROFILER_ENABLED" = "true" ]; then
+    		JAVA_CUSTOM_OPTS="${JAVA_CUSTOM_OPTS} ${JAVA_PROFILER_OPTS}"
+    fi

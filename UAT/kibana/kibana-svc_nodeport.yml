@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: idbi-apim-kibana-svc-nodeport
+  namespace: nsp-idbi-apim-uat
+  labels:
+    component: kibana
+spec:
+  type: NodePort
+  selector:
+    component: kibana
+  ports:
+  - name: http
+    port: 5601
+    targetPort: 5601
+    nodePort: 30043
+    protocol: TCP

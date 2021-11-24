@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  idbi-apim-kibana
+  namespace: nsp-idbi-apim-uat
+  labels:
+    component: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+     component: kibana
+  template:
+    metadata:
+      labels:
+        component: kibana
+    spec:
+      affinity:
+       nodeAffinity:
+         requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: elasticsearch-node-uat
+              operator: In
+              values:
+              - elasticsearch
+#       podAntiAffinity:
+ #           requiredDuringSchedulingIgnoredDuringExecution:
+ #           - labelSelector:
+ #               matchExpressions:
+  #               - key: component
+   #                operator: In
+    #               values:
+     #                 - kibana
+#              topologyKey: "kubernetes.io/hostname"
+
+      tolerations:
+      - key: "node-role.kubernetes.io/elasticsearch-uat"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+      containers:
+      - name: kibana
+        image: 10.143.140.124:5010/kibana-oss:7.7.1
+        env:
+        - name: "CLUSTER_NAME"
+          value: "SAG_EventDataStore"
+        - name: ELASTICSEARCH_URL
+          value: 'http://idbi-apim-es-svc-h.nsp-idbi-apim-uat.svc.cluster.local:9200'
+        resources:
+          limits:
+            cpu: 1000m
+          requests:
+            cpu: 100m
+        ports:
+        - containerPort: 5601
+          #name: kibana
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /api/status
+            port: 5601
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /api/status
+            port: 5601
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: kibana-config
+          mountPath: /tmp/kibana.yml
+          subPath: kibana.yml
+          readOnly: false
+        command:
+        - /bin/bash
+        - -c
+        - |
+         cp /tmp/kibana.yml /usr/share/kibana/config/kibana.yml
+         /usr/share/kibana/bin/kibana
+      volumes:
+      - name: kibana-config
+        configMap:
+          name: idbi-apim-kibana-config
+          items:
+          - key: kibana.yml
+            path: kibana.yml
+          defaultMode: 0777
+
+

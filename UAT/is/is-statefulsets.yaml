@@ -1,0 +1,220 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: 
+  name: idbi-apim-is-cluster
+  labels:
+    app: idbi-apim-is-cluster
+  namespace: nsp-idbi-apim-uat
+spec:
+  serviceName: idbi-apim-is-svc-h
+  replicas: 2
+  selector:
+    matchLabels:
+      app: idbi-apim-is
+  template:
+    metadata:
+      labels:
+        app: idbi-apim-is
+    spec:
+      terminationGracePeriodSeconds: 60
+      affinity:
+      # Pods will be placed in the worker node that has the label terracotta-node=terracotta
+        nodeAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+             nodeSelectorTerms:
+             - matchExpressions:
+               - key: webmethod_integration_common-node-uat
+                 operator: In
+                 values:
+                 - webmethod_integration_common
+      # Pods will label app=idbi-apim-tsa-cluster will not be placed together
+        podAntiAffinity:
+           requiredDuringSchedulingIgnoredDuringExecution:
+             - labelSelector:
+                 matchExpressions:
+                 - key: app
+                   operator: In
+                   values:
+                     - idbi-apim-is
+               topologyKey: "kubernetes.io/hostname"
+
+      # Toleration condition for Pods when the node is tainted and the subsequent effect
+      tolerations:
+       - key: "node-role.kubernetes.io/webmethod_integration_is-uat"
+         operator: "Exists"
+         effect: "NoSchedule"
+      containers:
+      - name: idbi-apim-is-server
+        image: 10.143.140.124:5010/apim-sag-is:v1.1
+        # imagePullPolicy: Never
+        ports:
+        - name: primary-port
+          containerPort: 5555
+        - name: ssl-port
+          containerPort: 5543
+        - name: diagnostic-port
+          containerPort: 9999
+        resources:
+          requests:
+            cpu: "0.25"
+            memory: "4Gi"
+          limits:
+            cpu: "1.5"
+            memory: "6Gi"
+        readinessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /invoke/wm.server/ping
+            port: 5555
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /invoke/wm.server/ping
+            port: 5555
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          failureThreshold: 5
+        volumeMounts:
+        - name: is-license
+          mountPath: /opt/softwareag/IntegrationServer/instances/default/licenseKey.xml
+          subPath: is-licensekey.xml
+          readOnly: false
+        - name: tsa-license
+          mountPath: /opt/softwareag/common/conf/terracotta-license.key
+          subPath: terracotta-license.key
+          readOnly: false
+        - name: custom-wrapper
+          mountPath: /opt/softwareag/profiles/IS_default/configuration/custom_wrapper.conf
+          subPath: custom_wrapper.conf
+          readOnly: false
+        - name: app-prop
+          mountPath: /opt/softwareag/IntegrationServer/application.properties
+          subPath: application.properties
+          readOnly: false
+        - name: jndi-prop
+          mountPath: /tmp/jndi_DEFAULT_IS_JNDI_PROVIDER.properties
+          subPath: jndi_DEFAULT_IS_JNDI_PROVIDER.properties
+          readOnly: false
+        - name: messaging-prop
+          mountPath: /tmp/messaging.cnf
+          subPath: messaging.cnf
+          readOnly: false
+        - name: jms-prop
+          mountPath: /tmp/jms.cnf
+          subPath: jms.cnf
+          readOnly: false
+        - name: default-keystore
+          mountPath: /tmp/keystore.jks
+          subPath: keystore.jks
+          readOnly: false
+        - name: default-truststore
+          mountPath: /tmp/truststore.jks
+          subPath: truststore.jks
+        - name: integration-server-logs
+          mountPath: /opt/softwareag/IntegrationServer/instances/default/logs
+          readOnly: false
+        - name: profile-logs
+          mountPath: /opt/softwareag/profiles/IS_default/logs/
+          readOnly: false
+        - name: is-csq
+          mountPath: /opt/softwareag/IntegrationServer/instances/default/db
+          readOnly: false
+        command:
+        - /bin/sh
+        - -c
+        - |
+         cp /tmp/keystore.jks   /opt/softwareag/common/conf/keystore.jks
+         cp /tmp/truststore.jks /opt/softwareag/common/conf/truststore.jks
+         cp /tmp/jndi_DEFAULT_IS_JNDI_PROVIDER.properties  /opt/softwareag/IntegrationServer/instances/default/config/jndi/jndi_DEFAULT_IS_JNDI_PROVIDER.properties
+         cp /tmp/messaging.cnf /opt/softwareag/IntegrationServer/instances/default/config/messaging.cnf
+         cp /tmp/jms.cnf  /opt/softwareag/IntegrationServer/instances/default/config/jms.cnf
+         /opt/softwareag/IntegrationServer/bin/startContainer.sh
+      volumes:
+      - name: is-license
+        configMap:
+          name: idbi-apim-is-license-config
+          items:
+          - key: is-licensekey.xml
+            path: is-licensekey.xml
+          defaultMode: 0777
+      - name: tsa-license
+        configMap:
+          name: idbi-apim-is-license-config
+          items:
+          - key: terracotta-license.key
+            path: terracotta-license.key
+          defaultMode: 0777
+      - name: custom-wrapper
+        configMap:
+          name: idbi-apim-is-config
+          items:
+          - key: custom_wrapper.conf
+            path: custom_wrapper.conf
+          defaultMode: 0777
+      - name: app-prop
+        configMap:
+          name: idbi-apim-is-config
+          items:
+          - key: application.properties
+            path: application.properties
+          defaultMode: 0777
+      - name: jndi-prop
+        configMap:
+          name: idbi-apim-is-config
+          items:
+          - key: jndi_DEFAULT_IS_JNDI_PROVIDER.properties
+            path: jndi_DEFAULT_IS_JNDI_PROVIDER.properties
+          defaultMode: 0777
+      - name: messaging-prop
+        configMap:
+          name: idbi-apim-is-config
+          items:
+          - key: messaging.cnf
+            path: messaging.cnf
+          defaultMode: 0777
+      - name: jms-prop
+        configMap:
+          name: idbi-apim-is-config
+          items:
+          - key: jms.cnf
+            path: jms.cnf
+          defaultMode: 0777
+      -  name: default-keystore
+         configMap:
+          name: idbi-apim-default-keystore-config
+          items:
+            - key: keystore.jks
+              path: keystore.jks
+          defaultMode: 0777      
+      -  name: default-truststore
+         configMap:
+          name: idbi-apim-default-truststore-config
+          items:
+            - key: truststore.jks
+              path: truststore.jks
+          defaultMode: 0777
+      - name: integration-server-logs
+        hostPath:
+          path: /data/is/is-logs
+          type: DirectoryOrCreate
+      - name: profile-logs
+        hostPath:
+          path: /data/is/is-profile-logs
+          type: DirectoryOrCreate
+
+  volumeClaimTemplates:
+  - metadata:
+      name: is-csq
+    spec:
+      storageClassName: nfs-storage-is-uat
+      accessModes: 
+      - ReadWriteMany
+      resources:
+        requests:
+          storage: 10Gi
+
+
+

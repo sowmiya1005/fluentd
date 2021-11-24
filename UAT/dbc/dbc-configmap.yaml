@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: idbi-apim-dbc-config
+  namespace: nsp-idbi-apim-uat
+data:
+  DB_TYPE: oracle
+  DB_URL: "jdbc:wm:oracle://dcoradbnpscan.idbibank.com:15210;ServiceName=APIMUATSRV"

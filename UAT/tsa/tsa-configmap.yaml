@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: idbi-apim-tsa-config
+  namespace: nsp-idbi-apim-uat
+data:
+  tc-config.xml: 
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+    Copyright (c) 2015-2017 Software AG, Darmstadt, Germany and/or Software AG USA Inc., Reston, VA, USA, and/or its subsidiaries and/or its affiliates and/or their licensors.
+    Use, reproduction, transfer, publication or disclosure is prohibited except as specifically provided for in your License Agreement with Software AG
+    -->
+
+    <tc:tc-config xmlns:tc="http://www.terracotta.org/config">
+
+      <servers>
+        <mirror-group>
+          <server host="idbi-apim-tsa-cluster-0.idbi-apim-tsa-svc-h.nsp-idbi-apim-uat.svc.cluster.local" name="idbi-apim-tsa-cluster-0" >
+            <tsa-port>9510</tsa-port>
+            <management-port>9540</management-port>
+            <tsa-group-port>9530</tsa-group-port>
+            <offheap>
+               <enabled>true</enabled>
+               <maxDataSize>4g</maxDataSize>
+            </offheap>
+            <data>/data/diskstore</data>
+            <data-backup>/data/backups</data-backup>
+            <logs>stdout:</logs>
+          </server>
+          <server host="idbi-apim-tsa-cluster-1.idbi-apim-tsa-svc-h.nsp-idbi-apim-uat.svc.cluster.local" name="idbi-apim-tsa-cluster-1" >
+            <tsa-port>9510</tsa-port>
+            <management-port>9540</management-port>
+            <tsa-group-port>9530</tsa-group-port>
+            <offheap>
+               <enabled>true</enabled>
+               <maxDataSize>4g</maxDataSize>
+            </offheap>
+            <data>/data/diskstore</data>
+            <data-backup>/data/backups</data-backup>
+            <logs>stdout:</logs>
+          </server>
+        </mirror-group>
+        <restartable enabled="true"/>
+      </servers>
+      <clients>
+        <logs>stdout:</logs>
+      </clients>
+    </tc:tc-config>
+
+  custom_wrapper.conf: |
+    wrapper.app.parameter.13="%WRAPPER_HOSTNAME%"
+    wrapper.app.parameter.6="%WRAPPER_HOSTNAME%"
+    wrapper.java.initmemory=2048
+    wrapper.java.maxmemory=2048
+    wrapper.java.additional.8=-XX:MaxDirectMemorySize=9223372036854775807
+    wrapper.java.additional.9=-Djavax.net.ssl.trustStore=""
+    wrapper.java.additional.9.stripquotes=TRUE
+
+
+  license.key: |
+    # This software license, granted by Terracotta Inc. - a Software AG company, is valid for and may only be used
+    # by the licensee of this product ("Licensee").
+    # Descriptor version: 4
+    # ------------------------------------------------------------------------------------
+    Date of Issue: 2021-09-02
+    License Type: Commercial
+    License Number: 7519850_2073761
+    Licensee: Price Water House Coopers Pvt Ltd
+    Product: BigMemory Max
+    Edition: EX
+    Capabilities: TMC, authentication, ehcache, ehcache offheap, search, security, server array offheap
+    Max Client Count: 20
+    webMethods OEM: true
+    terracotta.serverArray.maxDataStorage: 100G
+
+    Signature: MCwCFC1zmbZ+6ro2lBaXhCvwUOl8Of4sAhQ7Czg+VlSuy64rgPQm8mcGHp8eFw==
+
+

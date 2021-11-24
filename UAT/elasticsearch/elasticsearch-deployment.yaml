@@ -1,0 +1,255 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: 
+  name: idbi-apim-es-cluster
+  annotations:
+    # Having this annotation so that headless service always registers the IP address irrespective of probe status.
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  namespace: nsp-idbi-apim-uat
+spec:
+  serviceName: idbi-apim-es-svc-h
+  replicas: 3
+  selector:
+    matchLabels:
+      app: idbi-apim-es-cluster
+  template:
+    metadata:
+      labels:
+        app: idbi-apim-es-cluster
+    spec:
+      terminationGracePeriodSeconds: 10
+      affinity:
+        # Pods will be placed in the worker node that has the label es-node=internaldatastore
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: elasticsearch-node-uat
+                operator: In
+                values:
+                  - elasticsearch
+        # Pods will label app=idbi-apim-es-cluster will not be placed together
+
+      # Toleration condition for Pods when the node is tainted and the subsequent effect
+      tolerations:
+      - key: "node-role.kubernetes.io/elasticsearch-uat"
+        operator: "Exists"
+        effect: "NoSchedule"
+      initContainers:
+      - name: fix-permissions
+        image: 10.143.140.124:5010/busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /usr/share/elasticsearch/data"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: esdata
+          mountPath: /usr/share/elasticsearch/data
+      - name: increase-vm-max-map
+        image: 10.143.140.124:5010/busybox
+        command: ["sysctl", "-w", "vm.max_map_count=262144"]
+        securityContext:
+          privileged: true
+      - name: increase-fd-ulimit
+        image: 10.143.140.124:5010/busybox
+        command: ["sh", "-c", "ulimit -n 65536"]
+        securityContext:
+          privileged: true
+      containers:
+      - name: idbi-apim-es-server
+        image: 10.143.140.124:5010/elasticsearch-oss:7.7.1
+        resources:
+          limits:
+            cpu: "1"
+            memory: "2Gi" 
+          requests:
+            cpu: "0.25"
+            memory: "1Gi"
+        ports:
+        - containerPort: 9200
+          name: rest-api
+          protocol: TCP
+        - containerPort: 9300
+          name: inter-node-comm
+          protocol: TCP
+        volumeMounts:
+        - name: esdata
+          mountPath: /usr/share/elasticsearch/data
+        env:
+          - name: cluster.name
+            value: SAG_EventDataStore
+          - name: node.name
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: node.master
+            value: "true"
+          - name: node.ingest
+            value: "true"
+          - name: node.data
+            value: "true"
+          - name: discovery.seed_hosts
+            value: "idbi-apim-es-cluster-0.idbi-apim-es-svc-h.nsp-idbi-apim-uat.svc.cluster.local:9300,idbi-apim-es-cluster-1.idbi-apim-es-svc-h.nsp-idbi-apim-uat.svc.cluster.local:9300, idbi-apim-es-cluster-2.idbi-apim-es-svc-h.nsp-idbi-apim-uat.svc.cluster.local:9300"
+          - name: cluster.initial_master_nodes
+            value: "idbi-apim-es-cluster-0,idbi-apim-es-cluster-1,idbi-apim-es-cluster-2"
+          - name: discovery.zen.minimum_master_nodes
+            value: "2"
+          - name: ES_JAVA_OPTS
+            value: "-Xms512m -Xmx512m"
+
+        readinessProbe:
+          exec:
+           command:
+           - /bin/sh
+           - -c
+           - |
+             #!/usr/bin/env bash -e
+               HTTP_CODE=$(curl --output /dev/null -XGET -s -k "$@" ${BASIC_AUTH} "http://127.0.0.1:9200/_cluster/health?local=true" -w %{http_code})
+               RC=$?
+               if [[ ${RC} -ne 0 ]]; then
+                 echo "Probe failed with RC ${RC}"
+                 exit ${RC}
+               fi
+               if [[ ${HTTP_CODE} == "200" ]] || [[ ${HTTP_CODE} == "503" ]]; then
+                exit 0
+               else
+                 echo "Probe failed with HTTP code ${HTTP_CODE}"
+                 exit 1
+               fi
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 5 
+        livenessProbe:
+           exec:
+            command:
+            - /bin/sh
+            - -c
+            - |
+              #!/usr/bin/env bash -e
+                HTTP_CODE=$(curl --output /dev/null -XGET -s -k "$@" ${BASIC_AUTH} "http://127.0.0.1:9200/_cluster/health?local=true" -w %{http_code})
+                RC=$?
+                if [[ ${RC} -ne 0 ]]; then
+                  echo "Probe failed with RC ${RC}"
+                  exit ${RC}
+                fi
+                if [[ ${HTTP_CODE} == "200" ]] || [[ ${HTTP_CODE} == "503" ]]; then
+                 exit 0
+                else
+                 echo "Probe failed with HTTP code ${HTTP_CODE}"
+                 exit 1
+                fi
+           initialDelaySeconds: 10
+           periodSeconds: 10
+           failureThreshold: 5
+
+             
+      # containers:
+      # - name: idbi-apim-es-server
+      #   image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.7.1
+      #   resources:
+      #     limits:
+      #       cpu: "1"
+      #       memory: "2Gi" 
+      #     requests:
+      #       cpu: "0.25"
+      #       memory: "1Gi"
+      #   securityContext:
+      #     privileged: false
+      #   env:
+      #   - name: NODE_NAME
+      #     valueFrom:
+      #       fieldRef:
+      #         fieldPath: metadata.name
+      #   - name: "ES_JAVA_OPTS"
+      #     value: "-Xms1024m -Xmx1024m"
+      #   # - name: JAVA_EXEC_DIR
+      #   #   value: /opt/softwareag/jvm/jvm/bin/java
+      #   # - name: JAVA_HOME
+      #   #   value: /opt/softwareag/jvm/jvm
+      #   ports:
+      #   - containerPort: 9200
+      #     name: es-rest-port
+      #   - containerPort: 9300
+      #     name: es-inter-port
+      #   volumeMounts:
+      #   - name: esdata
+      #     mountPath: /usr/share/elasticsearch/data
+      #     readOnly: false
+      #   - name: esconfig
+      #     mountPath: /tmp/elasticsearch.yml
+      #     subPath: elasticsearch.yml
+      #     readOnly: false
+      #   command: 
+      #   - sh
+      #   - -c
+      #   - |
+      #     echo "Copying file now.."
+      #     cp /tmp/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+      #     echo "File copied successfully..."
+      #     more /usr/share/elasticsearch/config/elasticsearch.yml
+      #     sed -i 's|NODE_NAME|'"$NODE_NAME"'|g' /usr/share/elasticsearch/config/elasticsearch.yml
+      #     echo "replacment done successfully.."
+      #     more /usr/share/elasticsearch/config/elasticsearch.yml
+      #     /usr/share/elasticsearch/bin/elasticsearch
+      #   # - name: esjvmconfig
+      #   #   mountPath: /opt/softwareag/InternalDataStore/config/jvm.options
+      #   #   subPath: jvm.options
+
+      # volumes:
+      # - name: esconfig
+      #   configMap:
+      #     name: idbi-apim-es-config
+      #     items:
+      #       - key: elasticsearch.yml
+      #         path: elasticsearch.yml
+      #     defaultMode: 0777
+      # - name: esdata
+      #   hostPath:
+      #     path: /data/softwareag/es/data
+      #     type: DirectoryOrCreate
+      # - name: eslogs
+      #   hostPath:
+      #     path: /data/softwareag/es/logs
+      #     type: DirectoryOrCreate
+      # - name: esarchive
+      #   hostPath:
+      #     path: /data/softwareag/es/archive
+      #     type: DirectoryOrCreate
+      
+      # - name: esjvmconfig
+      #   configMap:
+      #     name: idbi-apim-es-config
+  volumeClaimTemplates:
+  - metadata:
+      name: esdata
+      labels:
+        type: elasticsearch-pvc-uat
+    spec:
+      storageClassName: nfs-storage-elastic-uat
+      accessModes: 
+      - ReadWriteMany
+      resources:
+        requests:
+          storage: 250Gi
+  # - metadata:
+  #     name: eslogs
+  #     labels:
+  #       type: hostPath
+  #   spec:
+  #     storageClassName: standard
+  #     accessModes: 
+  #     - ReadWriteMany
+  #     resources:
+  #       requests:
+  #         storage: 500Mi
+  # - metadata:
+  #     name: esarchive
+  #     labels:
+  #       type: hostPath
+  #   spec:
+  #     storageClassName: standard
+  #     accessModes: 
+  #     - ReadWriteMany
+  #     resources:
+  #       requests:
+  #         storage: 500Mi            
+

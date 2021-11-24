@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: idbi-um-pvc
+  labels:
+    app: idbi-um-pvc
+  namespace: nsp-idbi-apim-uat
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: nfs-storage-um-uat

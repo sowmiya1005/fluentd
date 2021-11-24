@@ -1,0 +1,179 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: idbi-apim-mws
+  labels:
+    app: idbi-apim-mws
+  namespace: nsp-idbi-apim-uat
+spec:
+  serviceName: idbi-apim-mws-svc-h
+  replicas: 1
+  selector:
+    matchLabels:
+      app: idbi-apim-mws-node
+  template:
+    metadata:
+      labels:
+        app: idbi-apim-mws-node
+    spec:
+      terminationGracePeriodSeconds: 30
+      affinity:
+        # Pods will be placed in the worker node that has the label terracotta-node=terracotta
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: mws-node-uat
+                operator: In
+                values:
+                - "mws"
+      # Toleration condition for Pods when the node is tainted and the subsequent effect
+      tolerations:
+      - key: "node-role.kubernetes.io/mws-uat"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: idbi-apim-mws-server
+        image: 10.143.140.124:5010/apim-sag-mws:v1.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: mws-https-port
+          containerPort: 8585
+        env:
+        - name: DB_TYPE
+          valueFrom:
+            configMapKeyRef:
+              name: idbi-apim-mws-config
+              key: DB_TYPE
+        - name: DB_URL
+          valueFrom:
+            configMapKeyRef:
+              name: idbi-apim-mws-config
+              key: DB_URL
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: idbi-apim-mws-secret
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: idbi-apim-mws-secret
+              key: DB_PASSWORD
+        resources:
+          requests:
+            cpu: "0.1"
+            memory: "1Gi"
+          limits:
+            cpu: "1.5"
+            memory: "2.5Gi"
+        readinessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /
+            port: 8585
+          initialDelaySeconds: 300
+          periodSeconds: 60
+          failureThreshold: 6
+        livenessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /
+            port: 8585
+          initialDelaySeconds: 1800
+          periodSeconds: 60
+          failureThreshold: 6
+
+        volumeMounts:
+        - name: custom-wrapper
+          mountPath: /data/softwareag/mws/MWS/volumes/configs/profile_cfg/custom_wrapper.conf
+          subPath: custom_wrapper.conf
+          readOnly: false
+        - name: cluster-config
+          mountPath: /tmp/cluster.xml
+          subPath: cluster.xml
+          readOnly: false
+        - name: mws-server-logs
+          mountPath: /data/softwareag/mws/MWS/volumes/logs/
+          readOnly: false
+        - name: jetty-config
+          mountPath: /tmp/jetty.xml
+          subPath: jetty.xml
+          readOnly: false
+        - name: mws-db
+          mountPath: /tmp/mws.db.xml
+          subPath: mws.db.xml
+          readOnly: false
+        - name: default-keystore
+          mountPath: /tmp/keystore.jks
+          subPath: keystore.jks
+          readOnly: false
+        - name: default-truststore
+          mountPath: /tmp/truststore.jks
+          subPath: truststore.jks
+          readOnly: false
+        command:
+        - /bin/sh
+        - -c
+        - |
+          cp /tmp/keystore.jks /data/softwareag/mws/MWS/server/default/config/security/keystore.jks
+          cp /tmp/truststore.jks /data/softwareag/mws/MWS/server/default/config/security/truststore.jks
+          cp /tmp/mws.db.xml /data/softwareag/mws/MWS/server/default/config/mws.db.xml
+          cp /tmp/cluster.xml /data/softwareag/mws/MWS/server/default/config/cluster.xml
+          cp /tmp/jetty.xml   /data/softwareag/mws/MWS/server/default/config/jetty.xml
+          cd /data/softwareag/mws/MWS/bin
+          ./mws.sh -s default putconfig cluster.xml
+          sleep 5
+          ./mws.sh -s default putconfig jetty.xml
+          sleep 5
+          rm -f /data/softwareag/mws/MWS/server/default/config/cluster.xml
+          rm -f /data/softwareag/mws/MWS/server/default/config/jetty.xml
+          cd /data/softwareag/mws/MWS/server/default/bin
+          /data/softwareag/mws/MWS/server/default/bin/container.sh
+      volumes:
+      - name: custom-wrapper
+        configMap:
+          name: idbi-apim-mws-config
+          items:
+          - key: custom_wrapper.conf
+            path: custom_wrapper.conf
+          defaultMode: 0777
+      - name: cluster-config
+        configMap:
+          name: idbi-apim-mws-config
+          items:
+          - key: cluster.xml
+            path: cluster.xml
+          defaultMode: 0777
+      - name: jetty-config
+        configMap:
+          name: idbi-apim-mws-config
+          items:
+          - key: jetty.xml
+            path: jetty.xml
+          defaultMode: 0777
+      - name: mws-db
+        configMap:
+          name: idbi-apim-mws-config
+          items:
+          - key: mws.db.xml
+            path: mws.db.xml
+          defaultMode: 0777
+      -  name: default-keystore
+         configMap:
+          name: idbi-apim-default-keystore-config
+          items:
+            - key: keystore.jks
+              path: keystore.jks
+          defaultMode: 0777      
+      -  name: default-truststore
+         configMap:
+          name: idbi-apim-default-truststore-config
+          items:
+            - key: truststore.jks
+              path: truststore.jks
+          defaultMode: 0777  
+      - name: mws-server-logs
+        hostPath:
+          path: /data/mws/logs
+          type: DirectoryOrCreate

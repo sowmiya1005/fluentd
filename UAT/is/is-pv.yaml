@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-ssis-00
+  labels:
+    type: localvolume
+  namespace: nsp-idbi-apim-prod
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/pv/logis0
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-ssis-01
+  labels:
+    type: localvolume
+  namespace: nsp-idbi-apim-prod
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/pv/logis1
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-ssis-02
+  labels:
+    type: localvolume
+  namespace: nsp-idbi-apim-prod
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/pv/csqis0
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-ssis-03
+  labels:
+    type: localvolume
+  namespace: nsp-idbi-apim-prod
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /data/pv/csqis1
