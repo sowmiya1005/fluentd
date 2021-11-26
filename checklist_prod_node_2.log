@@ -1,0 +1,580 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2021.11.26 13:04:55 =~=~=~=~=~=~=~=~=~=~=~=
+cat /etc/redhat-release 
+Red Hat Enterprise Linux release 8.4 (Ootpa)
+[root@dcoradbpr02 ~]# rpm -qa | grep bc
+sbc-1.3-9.el8.x86_64
+libcurl-7.61.1-18.el8.x86_64
+libcom_err-1.45.6-1.el8.x86_64
+libcomps-0.1.11-5.el8.x86_64
+libcap-2.26-4.el8.x86_64
+libcanberra-0.30-18.el8.x86_64
+libcdio-paranoia-10.2+0.94+2-3.el8.x86_64
+glibc-langpack-en-2.28-151.el8.x86_64
+python3-libcomps-0.1.11-5.el8.x86_64
+libcap-ng-0.7.9-5.el8.x86_64
+libsmbclient-4.13.3-3.el8.x86_64
+libcdio-2.0.0-3.el8.x86_64
+libxkbcommon-0.9.1-1.el8.x86_64
+glibc-common-2.28-151.el8.x86_64
+bc-1.07.1-5.el8.x86_64
+glibc-headers-2.28-151.el8.x86_64
+libcollection-0.7.0-39.el8.x86_64
+glibc-devel-2.28-151.el8.x86_64
+libcroco-0.6.12-4.el8_2.1.x86_64
+glibc-2.28-151.el8.i686
+libcanberra-gtk3-0.30-18.el8.x86_64
+libconfig-1.5-9.el8.x86_64
+libcacard-2.7.0-2.el8_1.x86_64
+libwbclient-4.13.3-3.el8.x86_64
+libxkbcommon-x11-0.9.1-1.el8.x86_64
+glibc-2.28-151.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep binutils
+binutils-2.30-93.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep elfutils-libelf
+elfutils-libelf-devel-0.182-3.el8.x86_64
+elfutils-libelf-devel-0.182-3.el8.i686
+elfutils-libelf-0.182-3.el8.i686
+elfutils-libelf-0.182-3.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep elfutils-libelf-devel
+elfutils-libelf-devel-0.182-3.el8.x86_64
+elfutils-libelf-devel-0.182-3.el8.i686
+[root@dcoradbpr02 ~]# rpm -qa | grep fontconfig-devel
+fontconfig-devel-2.13.1-3.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep glibc
+glibc-langpack-en-2.28-151.el8.x86_64
+glibc-common-2.28-151.el8.x86_64
+glibc-headers-2.28-151.el8.x86_64
+glibc-devel-2.28-151.el8.x86_64
+glibc-2.28-151.el8.i686
+glibc-2.28-151.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep glibc-devel
+glibc-devel-2.28-151.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep ksh
+ksh-20120801-254.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libaio
+libaio-0.3.112-1.el8.x86_64
+libaio-devel-0.3.112-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libaio-devel
+libaio-devel-0.3.112-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libXrender
+libXrender-0.9.10-7.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libX11
+libX11-1.6.8-4.el8.x86_64
+libX11-common-1.6.8-4.el8.noarch
+libX11-xcb-1.6.8-4.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libXau
+libXau-1.0.9-3.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libXi
+libXi-1.7.10-1.el8.x86_64
+libXinerama-1.1.4-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libXtst
+libXtst-1.2.3-7.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libgcc
+libgcc-8.4.1-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libnsl
+libnsl-2.28-151.el8.x86_64
+libnsl2-1.2.0-2.20180605git4a062cf.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep librdmacm
+librdmacm-32.0-4.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libstdc++
+libstdc++-8.4.1-1.el8.x86_64
+libstdc++-devel-8.4.1-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libstdc++-devel
+libstdc++-devel-8.4.1-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libxcb
+libxcb-1.13.1-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libibverbs
+libibverbs-32.0-4.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep make
+make-4.2.1-10.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep smartmontools
+smartmontools-7.1-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep sysstat
+sysstat-11.7.3-5.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep ipmitool
+ipmitool-1.8.18-17.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep libnsl2 
+[root@dcoradbpr02 ~]# rpm -qa | grep libnsl2-devel
+[root@dcoradbpr02 ~]# rpm -qa | grep net-tools
+net-tools-2.0-0.52.20160912git.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep nfs-utils
+nfs-utils-2.3.3-41.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep cvuqdisk
+cvuqdisk-1.0.10-1.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep oracleasm-support
+oracleasm-support-2.1.12-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep oracleasmlib
+oracleasmlib-2.0.17-1.el8.x86_64
+[root@dcoradbpr02 ~]# rpm -qa | grep chronyd
+[root@dcoradbpr02 ~]# rpm -qa | grep Nscd 
+[root@dcoradbpr02 ~]# rpm -qa | grep kmod-redhat-oracleasm
+kmod-redhat-oracleasm-2.0.8-11.el8.x86_64
+[root@dcoradbpr02 ~]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+10.142.15.222 dcapirhevm01.idbibank.com
+10.144.17.33vropsdc.idbibank.ad
+10.144.17.31 vropsdc01.idbibank.ad
+10.144.17.32vropsdc02.idbibank.ad
+#=================================================================================#
+#Public for OS
+10.142.15.234   dcoradbpr01.idbibank.com        dcoradbpr01
+10.142.15.233   dcoradbpr02.idbibank.com        dcoradbpr02
+
+
+#Public for RAC
+
+10.142.15.199   dcoradbprpub01.idbibank.com        dcoradbpr01-pub
+10.142.15.198   dcoradbprpub02.idbibank.com        dcoradbpr02-pub
+
+
+# Private
+
+10.142.1.153   dcoradbprprv01.idbibank.com        dcoradbpr01-prv
+10.142.1.154   dcoradbprprv02.idbibank.com        dcoradbpr02-prv
+
+#VIP
+10.142.15.197   dcoradbprvip01.idbibank.com        dcoradbpr01-vip
+10.142.15.196   dcoradbprvip02.idbibank.com        dcoradbpr02-vip
+
+#SCAN
+#10.142.15.195   dcoradbprscan.idbibank.com        dcoradbpr-scan
+#10.142.15.194   dcoradbprscan.idbibank.com        dcoradbpr-scan
+#10.142.15.193   dcoradbprscan.idbibank.com        dcoradbpr-scan
+
+[root@dcoradbpr02 ~]# ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: ens3f0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether b4:7a:f1:21:51:88 brd ff:ff:ff:ff:ff:ff
+3: ens3f1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether b4:7a:f1:21:51:8c brd ff:ff:ff:ff:ff:ff
+4: eno5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether b4:7a:f1:1b:0f:c0 brd ff:ff:ff:ff:ff:ff
+    inet 10.142.15.233/22 brd 10.142.15.255 scope global noprefixroute eno5
+       valid_lft forever preferred_lft forever
+    inet6 fe80::686:e72d:743:1ee6/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+5: eno6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether b4:7a:f1:1b:0f:c2 brd ff:ff:ff:ff:ff:ff
+    inet 10.142.15.200/22 brd 10.142.15.255 scope global noprefixroute eno6
+       valid_lft forever preferred_lft forever
+    inet6 fe80::b67a:f1ff:fe1b:fc2/64 scope link 
+       valid_lft forever preferred_lft forever
+6: eno7: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether b4:7a:f1:1b:0f:c4 brd ff:ff:ff:ff:ff:ff
+    inet 10.142.15.198/22 brd 10.142.15.255 scope global noprefixroute eno7
+       valid_lft forever preferred_lft forever
+    inet 10.142.15.193/22 brd 10.142.15.255 scope global secondary eno7:1
+       valid_lft forever preferred_lft forever
+    inet 10.142.15.196/22 brd 10.142.15.255 scope global secondary eno7:2
+       valid_lft forever preferred_lft forever
+    inet6 fe80::b67a:f1ff:fe1b:fc4/64 scope link 
+       valid_lft forever preferred_lft forever
+7: eno8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether b4:7a:f1:1b:0f:c6 brd ff:ff:ff:ff:ff:ff
+    inet 10.142.1.154/24 brd 10.142.1.255 scope global noprefixroute eno8
+       valid_lft forever preferred_lft forever
+    inet 169.254.6.36/19 brd 169.254.31.255 scope global eno8:1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::d830:1653:fdfe:4991/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+[root@dcoradbpr02 ~]# systmeemctl ststatus chronyd
+ chronyd.service - NTP client/server
+   Loaded: loaded (/usr/lib/systemd/system/chronyd.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2021-10-26 14:42:03 IST; 1 months 0 days ago
+     Docs: man:chronyd(8)
+           man:chrony.conf(5)
+  Process: 2251081 ExecStartPost=/usr/libexec/chrony-helper update-daemon (code=exited, status=0/SUCCESS)
+  Process: 2251077 ExecStart=/usr/sbin/chronyd $OPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 2251080 (chronyd)
+    Tasks: 1 (limit: 822511)
+   Memory: 356.0K
+   CGroup: /system.slice/chronyd.service
+           2251080 /usr/sbin/chronyd
+
+Nov 20 09:52:17 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.179
+Nov 21 04:40:50 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.178
+Nov 21 07:40:48 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.179
+Nov 21 08:10:17 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.178
+Nov 21 09:20:01 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.179
+Nov 21 13:18:27 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.178
+Nov 21 14:24:58 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.179
+Nov 21 15:09:24 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.178
+Nov 23 15:24:34 dcoradbpr02 chronyd[2251080]: Selected source 10.142.8.179
+Nov 25 18:13:50 dcoradbpr02 chronyd[2251080]: Can't synchronise: no selectable sources
+[root@dcoradbpr02 ~]# time
+
+real0m0.000s
+user0m0.000s
+sys0m0.000s
+[root@dcoradbpr02 ~]# timedatectl
+               Local time: Fri 2021-11-26 13:08:47 IST
+           Universal time: Fri 2021-11-26 07:38:47 UTC
+                 RTC time: Fri 2021-11-26 07:39:27
+                Time zone: Asia/Kolkata (IST, +0530)
+System clock synchronized: no
+              NTP service: active
+          RTC in local TZ: no
+[root@dcoradbpr02 ~]# cat /sys/kernel/mm/transparent_hugepage/enabled 
+always madvise [never]
+[root@dcoradbpr02 ~]# ssh root@dcoradbpr021
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+*          This system is for the use of authorized users only. Individuals using this computer system without authority,are subject to having all of their activities on this system monitored and recorded by system personnel.
+
+*       In the course of monitoring individuals improperly using this system, or in the course of system maintenance, the activities of authorized users may also be monitored.
+
+*        Anyone using this system expressly consents to such monitoring and is advised that if such monitoring reveals possible evidence of criminal activity, system personnel may provide the evidence of such monitoring to law enforcement officials.
+
+********************************************************************************************************************************************************************************************************************************************************************************
+
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+*          This system is for the use of authorized users only. Individuals using this computer system without authority,are subject to having all of their activities on this system monitored and recorded by system personnel.
+
+*       In the course of monitoring individuals improperly using this system, or in the course of system maintenance, the activities of authorized users may also be monitored.
+
+*        Anyone using this system expressly consents to such monitoring and is advised that if such monitoring reveals possible evidence of criminal activity, system personnel may provide the evidence of such monitoring to law enforcement officials.
+
+********************************************************************************************************************************************************************************************************************************************************************************
+
+Activate the web console with: systemctl enable --now cockpit.socket
+
+This system is not registered to Red Hat Insights. See https://cloud.redhat.com/
+To register this system, run: insights-client --register
+
+Last login: Fri Nov 26 13:09:13 2021
+[root@dcoradbpr01 ~]# logout
+Connection to dcoradbpr01 closed.
+[root@dcoradbpr02 ~]# ssh groid@dcoradbpr021su grid
+[grid@dcoradbpr02 root]$ ssh grid @dcoradbpr021
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+*          This system is for the use of authorized users only. Individuals using this computer system without authority,are subject to having all of their activities on this system monitored and recorded by system personnel.
+
+*       In the course of monitoring individuals improperly using this system, or in the course of system maintenance, the activities of authorized users may also be monitored.
+
+*        Anyone using this system expressly consents to such monitoring and is advised that if such monitoring reveals possible evidence of criminal activity, system personnel may provide the evidence of such monitoring to law enforcement officials.
+
+********************************************************************************************************************************************************************************************************************************************************************************
+
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+*          This system is for the use of authorized users only. Individuals using this computer system without authority,are subject to having all of their activities on this system monitored and recorded by system personnel.
+
+*       In the course of monitoring individuals improperly using this system, or in the course of system maintenance, the activities of authorized users may also be monitored.
+
+*        Anyone using this system expressly consents to such monitoring and is advised that if such monitoring reveals possible evidence of criminal activity, system personnel may provide the evidence of such monitoring to law enforcement officials.
+
+********************************************************************************************************************************************************************************************************************************************************************************
+
+Activate the web console with: systemctl enable --now cockpit.socket
+
+This system is not registered to Red Hat Insights. See https://cloud.redhat.com/
+To register this system, run: insights-client --register
+
+Last login: Fri Nov 26 13:06:20 2021
+[grid@dcoradbpr01 ~]$ logout
+Connection to dcoradbpr01 closed.
+[grid@dcoradbpr02 root]$ exit
+[root@dcoradbpr02 ~]# su oracle
+[oracle@dcoradbpr02 root]$ ssh oracle@dcoradbpr021
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+*          This system is for the use of authorized users only. Individuals using this computer system without authority,are subject to having all of their activities on this system monitored and recorded by system personnel.
+
+*       In the course of monitoring individuals improperly using this system, or in the course of system maintenance, the activities of authorized users may also be monitored.
+
+*        Anyone using this system expressly consents to such monitoring and is advised that if such monitoring reveals possible evidence of criminal activity, system personnel may provide the evidence of such monitoring to law enforcement officials.
+
+********************************************************************************************************************************************************************************************************************************************************************************
+
+****************************************************************************************************************************************
+****************************************************************************************************************************************
+*          This system is for the use of authorized users only. Individuals using this computer system without authority,are subject to having all of their activities on this system monitored and recorded by system personnel.
+
+*       In the course of monitoring individuals improperly using this system, or in the course of system maintenance, the activities of authorized users may also be monitored.
+
+*        Anyone using this system expressly consents to such monitoring and is advised that if such monitoring reveals possible evidence of criminal activity, system personnel may provide the evidence of such monitoring to law enforcement officials.
+
+********************************************************************************************************************************************************************************************************************************************************************************
+
+Activate the web console with: systemctl enable --now cockpit.socket
+
+This system is not registered to Red Hat Insights. See https://cloud.redhat.com/
+To register this system, run: insights-client --register
+
+Last login: Fri Nov 26 13:06:21 2021
+[oracle@dcoradbpr01 ~]$ logout
+Connection to dcoradbpr01 closed.
+[oracle@dcoradbpr02 root]$ exit
+[root@dcoradbpr02 ~]# systemctl --all|grep nscd
+  nscd.service                                                                                                         loaded    active   running   Name Service Cache Daemon                                                                                           
+  nscd.socket                                                                                                          loaded    active   running   Name Service Cache Daemon Socket                                                                                    
+[root@dcoradbpr02 ~]# uname4 -a
+Linux dcoradbpr02 4.18.0-305.el8.x86_64 #1 SMP Thu Apr 29 08:54:30 EDT 2021 x86_64 x86_64 x86_64 GNU/Linux
+[root@dcoradbpr02 ~]# fdisk -l| grep Disk
+Disk /dev/sda: 745.2 GiB, 800132521984 bytes, 1562758832 sectors
+Disklabel type: gpt
+Disk identifier: 16845545-B605-4833-8632-E2430DC408B4
+Disk /dev/sdb: 558.9 GiB, 600093712384 bytes, 1172058032 sectors
+Disklabel type: dos
+Disk identifier: 0xddd6f8e4
+Disk /dev/sdc: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x8ad55549
+Disk /dev/sdd: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0xb6f1ce60
+Disk /dev/sde: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x29f9d50f
+Disk /dev/sdf: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x26e880d4
+Disk /dev/sdh: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x9758986e
+Disk /dev/sdi: 512.2 GiB, 549994889216 bytes, 1074208768 sectors
+Disklabel type: dos
+Disk identifier: 0x53ccc477
+Disk /dev/sdg: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x621fcbf8
+Disk /dev/sdj: 521.5 GiB, 559994109952 bytes, 1093738496 sectors
+Disklabel type: dos
+Disk identifier: 0xd0ed7cdc
+Disk /dev/sds: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x8ad55549
+Disk /dev/sdt: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0xb6f1ce60
+Disk /dev/sdu: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x29f9d50f
+Disk /dev/sdv: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x26e880d4
+Disk /dev/sdw: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x621fcbf8
+Disk /dev/sdx: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x9758986e
+Disk /dev/sdy: 512.2 GiB, 549994889216 bytes, 1074208768 sectors
+Disklabel type: dos
+Disk identifier: 0x53ccc477
+Disk /dev/sdz: 521.5 GiB, 559994109952 bytes, 1093738496 sectors
+Disklabel type: dos
+Disk identifier: 0xd0ed7cdc
+Disk /dev/mapper/rhel00-root: 150 GiB, 161061273600 bytes, 314572800 sectors
+Disk /dev/mapper/rhel-swap: 32 GiB, 34359738368 bytes, 67108864 sectors
+Disk /dev/mapper/rhel00-dump: 100 GiB, 107374182400 bytes, 209715200 sectors
+Disk /dev/mapper/mpatha: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x8ad55549
+Disk /dev/mapper/mpathb: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0xb6f1ce60
+Disk /dev/mapper/mpathc: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x29f9d50f
+Disk /dev/mapper/mpathd: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x26e880d4
+Disk /dev/mapper/mpathe: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x621fcbf8
+Disk /dev/mapper/mpathf: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x9758986e
+Disk /dev/mapper/mpathg: 512.2 GiB, 549994889216 bytes, 1074208768 sectors
+Disklabel type: dos
+Disk identifier: 0x53ccc477
+Disk /dev/mapper/mpathh: 521.5 GiB, 559994109952 bytes, 1093738496 sectors
+Disklabel type: dos
+Disk identifier: 0xd0ed7cdc
+Disk /dev/mapper/rhel01-u01: 100 GiB, 107374182400 bytes, 209715200 sectors
+Disk /dev/mapper/rhel01-archive: 400 GiB, 429496729600 bytes, 838860800 sectors
+Disk /dev/mapper/rhel02-backup: 500 GiB, 536870912000 bytes, 1048576000 sectors
+Disk /dev/sdk: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x8ad55549
+Disk /dev/sdl: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0xb6f1ce60
+Disk /dev/sdm: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x29f9d50f
+Disk /dev/sdo: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x621fcbf8
+Disk /dev/sdn: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x26e880d4
+Disk /dev/sdp: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x9758986e
+Disk /dev/sdq: 512.2 GiB, 549994889216 bytes, 1074208768 sectors
+Disklabel type: dos
+Disk identifier: 0x53ccc477
+Disk /dev/sdr: 521.5 GiB, 559994109952 bytes, 1093738496 sectors
+Disklabel type: dos
+Disk identifier: 0xd0ed7cdc
+Disk /dev/sdaa: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x8ad55549
+Disk /dev/sdab: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0xb6f1ce60
+Disk /dev/sdae: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x621fcbf8
+Disk /dev/sdad: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x26e880d4
+Disk /dev/sdaf: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x9758986e
+Disk /dev/sdac: 149 GiB, 159995920384 bytes, 312492032 sectors
+Disklabel type: dos
+Disk identifier: 0x29f9d50f
+Disk /dev/sdah: 521.5 GiB, 559994109952 bytes, 1093738496 sectors
+Disklabel type: dos
+Disk identifier: 0xd0ed7cdc
+Disk /dev/sdag: 512.2 GiB, 549994889216 bytes, 1074208768 sectors
+Disklabel type: dos
+Disk identifier: 0x53ccc477
+[root@dcoradbpr02 ~]# ps -ef | grep smon
+root      657695       1  0 Oct08 ?        11:41:49 /u01/app/19.3/grid/bin/osysmond.bin
+grid      661023       1  0 Oct08 ?        00:01:13 asm_smon_+ASM2
+oracle    955316       1  0 Oct08 ?        00:01:50 ora_smon_APIMDB2
+root     1752822 1746387  0 13:13 pts/0    00:00:00 grep --color=auto smon
+[root@dcoradbpr02 ~]# . oraenv
+ORACLE_SID = [root] ? +ASM2
+ORACLE_HOME = [/home/oracle] ? /u01/app/19.3/grid
+The Oracle base has been set to /u01/app/oracle
+[root@dcoradbpr02 ~]# 
+[root@dcoradbpr02 ~]# crsctl check crs
+CRS-4638: Oracle High Availability Services is online
+CRS-4537: Cluster Ready Services is online
+CRS-4529: Cluster Synchronization Services is online
+CRS-4533: Event Manager is online
+[root@dcoradbpr02 ~]# crsctl stat res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details       
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       dcoradbpr01              STABLE
+               ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.chad
+               ONLINE  ONLINE       dcoradbpr01              STABLE
+               ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.net1.network
+               ONLINE  ONLINE       dcoradbpr01              STABLE
+               ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.ons
+               ONLINE  ONLINE       dcoradbpr01              STABLE
+               ONLINE  ONLINE       dcoradbpr02              STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.ASMNET1LSNR_ASM.lsnr(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.CRS.dg(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.DATA.dg(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.FRA.dg(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.LISTENER_SCAN1.lsnr
+      1        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.LISTENER_SCAN2.lsnr
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+ora.LISTENER_SCAN3.lsnr
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+ora.REDO1.dg(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.REDO2.dg(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.apimdb.apimdbsrv.svc
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+ora.apimdb.db
+      1        ONLINE  ONLINE       dcoradbpr01              Open,HOME=/u01/app/o
+                                                             racle/product/19.3/d
+                                                             bhome_1,STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              Open,HOME=/u01/app/o
+                                                             racle/product/19.3/d
+                                                             bhome_1,STABLE
+ora.asm(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              Started,STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              Started,STABLE
+ora.asmnet1.asmnetwork(ora.asmgroup)
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+      2        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.cvu
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+ora.dcoradbpr01.vip
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+ora.dcoradbpr02.vip
+      1        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.qosmserver
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+ora.scan1.vip
+      1        ONLINE  ONLINE       dcoradbpr02              STABLE
+ora.scan2.vip
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+ora.scan3.vip
+      1        ONLINE  ONLINE       dcoradbpr01              STABLE
+--------------------------------------------------------------------------------
+[root@dcoradbpr02 ~]# ps -ef | grep tns
+root         122       2  0 Oct05 ?        00:00:00 [netns]
+grid      660365       1  0 Oct08 ?        00:23:53 /u01/app/19.3/grid/bin/tnslsnr ASMNET1LSNR_ASM -no_crs_notify -inherit
+grid      660532       1  0 Oct08 ?        00:01:40 /u01/app/19.3/grid/bin/tnslsnr LISTENER_SCAN1 -no_crs_notify -inherit
+grid      660946       1  0 Oct08 ?        00:01:42 /u01/app/19.3/grid/bin/tnslsnr LISTENER -no_crs_notify -inherit
+root     1754632 1746387  0 13:17 pts/0    00:00:00 grep --color=auto tns
+[root@dcoradbpr02 ~]# ps -ef | grep d.bin
+root      656450       1  0 Oct08 ?        04:26:51 /u01/app/19.3/grid/bin/ohasd.bin reboot BLOCKING_STACK_LOCALE_OHAS=AMERICAN_AMERICA.AL32UTF8
+root      656760       1  0 Oct08 ?        03:10:45 /u01/app/19.3/grid/bin/orarootagent.bin
+grid      656849       1  0 Oct08 ?        04:46:39 /u01/app/19.3/grid/bin/oraagent.bin
+grid      656912       1  0 Oct08 ?        01:32:11 /u01/app/19.3/grid/bin/mdnsd.bin
+grid      656914       1  0 Oct08 ?        03:30:49 /u01/app/19.3/grid/bin/evmd.bin
+grid      657114       1  0 Oct08 ?        01:44:51 /u01/app/19.3/grid/bin/gpnpd.bin
+grid      657219  656914  0 Oct08 ?        01:30:25 /u01/app/19.3/grid/bin/evmlogger.bin -o /u01/app/19.3/grid/log/[HOSTNAME]/evmd/evmlogger.info -l /u01/app/19.3/grid/log/[HOSTNAME]/evmd/evmlogger.log
+grid      657408       1  0 Oct08 ?        04:05:19 /u01/app/19.3/grid/bin/gipcd.bin
+root      657693       1  0 Oct08 ?        02:08:12 /u01/app/19.3/grid/bin/cssdmonitor
+root      657695       1  0 Oct08 ?        11:41:51 /u01/app/19.3/grid/bin/osysmond.bin
+root      657729       1  0 Oct08 ?        02:07:38 /u01/app/19.3/grid/bin/cssdagent
+grid      657746       1  0 Oct08 ?        08:40:28 /u01/app/19.3/grid/bin/ocssd.bin  -S 2
+root      659484       1  0 Oct08 ?        04:20:11 /u01/app/19.3/grid/bin/octssd.bin reboot
+root      659889       1  0 Oct08 ?        04:13:09 /u01/app/19.3/grid/bin/crsd.bin reboot
+root      660082       1  1 Oct08 ?        13:19:34 /u01/app/19.3/grid/bin/orarootagent.bin
+grid      660250       1  1 Oct08 ?        12:34:57 /u01/app/19.3/grid/bin/oraagent.bin
+grid      660365       1  0 Oct08 ?        00:23:53 /u01/app/19.3/grid/bin/tnslsnr ASMNET1LSNR_ASM -no_crs_notify -inherit
+grid      660532       1  0 Oct08 ?        00:01:40 /u01/app/19.3/grid/bin/tnslsnr LISTENER_SCAN1 -no_crs_notify -inherit
+grid      660946       1  0 Oct08 ?        00:01:42 /u01/app/19.3/grid/bin/tnslsnr LISTENER -no_crs_notify -inherit
+oracle    955143       1  0 Oct08 ?        03:33:09 /u01/app/19.3/grid/bin/oraagent.bin
+root     1754645 1746387  0 13:17 pts/0    00:00:00 grep --color=auto d.bin
+[root@dcoradbpr02 ~]# crsctl query css votedisk
+##  STATE    File Universal Id                File Name Disk group
+--  -----    -----------------                --------- ---------
+ 1. ONLINE   6ece9e0c0d8c4fbabf383409347f9593 (/dev/oracleasm/disks/CRS2) [CRS]
+Located 1 voting disk(s).
+[root@dcoradbpr02 ~]# exit
+logout
+[monitor@dcoradbpr02 ~]$ exity
+logout
